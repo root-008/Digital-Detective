@@ -9,28 +9,30 @@ class IntroVideoController extends GetxController {
   void onInit() {
     super.onInit();
     // Web için assets yolunu belirtiyoruz
-    videoPlayerController = VideoPlayerController.asset('assets/videos/intro.mp4')
-      ..initialize().then((_) {
-        isInitialized.value = true;
-        videoPlayerController.play();
-        videoPlayerController.setVolume(1.0); // Ses açık
-      });
+    videoPlayerController =
+        VideoPlayerController.asset('assets/videos/intro.mp4')
+          ..initialize().then((_) {
+            isInitialized.value = true;
+            videoPlayerController.play();
+            videoPlayerController.setVolume(1.0); // Ses açık
+          });
 
     // Video bitimini dinle
     videoPlayerController.addListener(checkVideoEnd);
   }
 
   void checkVideoEnd() {
-    if (videoPlayerController.value.position == videoPlayerController.value.duration) {
+    if (videoPlayerController.value.position ==
+        videoPlayerController.value.duration) {
       _navigateToHome();
     }
   }
 
   void _navigateToHome() {
-    // Video listener'ı temizle ki tekrar tetiklenmesin
     videoPlayerController.removeListener(checkVideoEnd);
-    // Ana sayfaya yönlendir
-    Get.offNamed('/home');
+
+    var userNameArgs = Get.arguments;
+    Get.offNamed('/home', arguments: userNameArgs);
   }
 
   void skipVideo() {

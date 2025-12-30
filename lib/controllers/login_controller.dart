@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginController extends GetxController {
   final TextEditingController nameController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final box = GetStorage();
 
   @override
   void onClose() {
@@ -13,12 +15,15 @@ class LoginController extends GetxController {
 
   void startMission() {
     if (formKey.currentState!.validate()) {
-      // Kullanıcı adını kaydet (İlerde global state'e atılabilir)
       final userName = nameController.text;
-      print("Ajan Girişi: $userName");
 
-      // Video sayfasına yönlendir (Geçmişi silerek gitmek için offNamed)
-      Get.offNamed('/intro-video'); 
+      box.write('userName', userName);
+
+      if (box.read('unlockedLevel') == null) {
+        box.write('unlockedLevel', 1);
+      }
+
+      Get.offNamed('/intro-video');
     }
   }
 }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/view/home_view.dart';
 import 'package:flutter_application_1/view/intro_video_view.dart';
 import 'package:flutter_application_1/view/login_view.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'core/theme/app_colors.dart';
 
-void main() {
+void main() async {
+  // 1. GetStorage'ı başlat
+  await GetStorage.init();
+
   runApp(const MyApp());
 }
 
@@ -13,22 +18,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    final String? savedUser = box.read('userName');
+    
+    final String startRoute = savedUser != null ? '/home' : '/';
+
     return GetMaterialApp(
       title: 'Dijital Dedektif',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.neonBlue,
         scaffoldBackgroundColor: AppColors.backgroundDark,
-        // Varsayılan font ailesi (Google Fonts eklediysen burada belirtebilirsin)
-        fontFamily: 'Roboto', 
+        fontFamily: 'Roboto',
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: startRoute,
       getPages: [
         GetPage(name: '/', page: () => LoginView()),
         GetPage(name: '/intro-video', page: () => IntroVideoView()),
-        // Henüz yapmadığımız için geçici olarak Login'e atıyor, sonra düzelteceğiz
-        GetPage(name: '/home', page: () => const Scaffold(body: Center(child: Text("GÖREV MERKEZİ (Yakında)")))), 
+        GetPage(name: '/home', page: () => HomeView()),
+        // Placeholder modüller
+        GetPage(name: '/module1', page: () => const Scaffold(body: Center(child: Text("Modül 1")))),
+        GetPage(name: '/module2', page: () => const Scaffold(body: Center(child: Text("Modül 2")))),
+        GetPage(name: '/module3', page: () => const Scaffold(body: Center(child: Text("Modül 3")))),
       ],
     );
   }

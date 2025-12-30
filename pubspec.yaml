@@ -12,6 +12,7 @@ dependencies:
   get: ^4.7.3
   video_player: ^2.10.1
   google_fonts: ^6.3.3
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:

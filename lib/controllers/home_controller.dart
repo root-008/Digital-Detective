@@ -18,12 +18,13 @@ class HomeController extends GetxController {
     userName.value = box.read('userName') ?? "Ajan";
     unlockedLevel.value = box.read('unlockedLevel') ?? 1;
   }
-void openModule(int moduleId) {
+
+  void openModule(int moduleId) {
     if (moduleId <= unlockedLevel.value) {
       Get.toNamed('/module$moduleId');
     } else {
       Get.snackbar(
-        "Erişim Reddedildi", 
+        "Erişim Reddedildi",
         "Bu görevi açmak için önceki görevi tamamlamalısın Ajan!",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF151A30),
@@ -33,11 +34,10 @@ void openModule(int moduleId) {
     }
   }
 
-
   void unlockNextLevel() {
     if (unlockedLevel.value < 3) {
       unlockedLevel.value++;
-      box.write('unlockedLevel', unlockedLevel.value); 
+      box.write('unlockedLevel', unlockedLevel.value);
       update();
     }
   }

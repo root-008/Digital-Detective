@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/view/home_view.dart';
 import 'package:flutter_application_1/view/intro_video_view.dart';
 import 'package:flutter_application_1/view/login_view.dart';
-import 'package:flutter_application_1/view/module1_view_dart';
+import 'package:flutter_application_1/view/module1_view.dart';
+import 'package:flutter_application_1/view/module2_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'core/theme/app_colors.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final box = GetStorage();
     final String? savedUser = box.read('userName');
-    
+
     final String startRoute = savedUser != null ? '/home' : '/';
 
     return GetMaterialApp(
@@ -40,8 +41,11 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => HomeView()),
         // Placeholder modüller
         GetPage(name: '/module1', page: () => Module1View()),
-        GetPage(name: '/module2', page: () => const Scaffold(body: Center(child: Text("Modül 2")))),
-        GetPage(name: '/module3', page: () => const Scaffold(body: Center(child: Text("Modül 3")))),
+        GetPage(name: '/module2', page: () => Module2View()),
+        GetPage(
+          name: '/module3',
+          page: () => const Scaffold(body: Center(child: Text("Modül 3"))),
+        ),
       ],
     );
   }

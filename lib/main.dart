@@ -4,6 +4,7 @@ import 'package:flutter_application_1/view/intro_video_view.dart';
 import 'package:flutter_application_1/view/login_view.dart';
 import 'package:flutter_application_1/view/module1_view.dart';
 import 'package:flutter_application_1/view/module2_view.dart';
+import 'package:flutter_application_1/view/module3_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'core/theme/app_colors.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/module2', page: () => Module2View()),
         GetPage(
           name: '/module3',
-          page: () => const Scaffold(body: Center(child: Text("Modül 3"))),
+          page: () => Module3View(),
         ),
       ],
     );
